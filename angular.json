@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "cli": {
+    "analytics": "9fd0635f-d688-4015-a318-a8a27bceee21",
+    "defaultCollection": "@nrwl/angular"
+  },
+  "defaultProject": "rabbit-challenge",
+  "schematics": {
+    "@nrwl/workspace": {
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/cypress": {
+      "cypress-project": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/node": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/nest": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/express": {
+      "application": {
+        "linter": "tslint"
+      },
+      "library": {
+        "linter": "tslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "scss",
+      "linter": "tslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "scss",
+      "linter": "tslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "scss"
+    }
+  },
+  "projects": {
+    "rabbit-challenge": {
+      "projectType": "application",
+      "root": "apps/rabbit-challenge",
+      "sourceRoot": "apps/rabbit-challenge/src",
+      "prefix": "rabbi-challenge",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/rabbit-challenge",
+            "index": "apps/rabbit-challenge/src/index.html",
+            "main": "apps/rabbit-challenge/src/main.ts",
+            "polyfills": "apps/rabbit-challenge/src/polyfills.ts",
+            "tsConfig": "apps/rabbit-challenge/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/rabbit-challenge/src/favicon.ico",
+              "apps/rabbit-challenge/src/assets"
+            ],
+            "styles": ["apps/rabbit-challenge/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/rabbit-challenge/src/environments/environment.ts",
+                  "with": "apps/rabbit-challenge/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "rabbit-challenge:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "rabbit-challenge:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "rabbit-challenge:build"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/rabbit-challenge/tsconfig.app.json",
+              "apps/rabbit-challenge/tsconfig.spec.json",
+              "apps/rabbit-challenge/tsconfig.editor.json"
+            ],
+            "exclude": ["**/node_modules/**", "!apps/rabbit-challenge/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/rabbit-challenge"],
+          "options": {
+            "jestConfig": "apps/rabbit-challenge/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "rabbit-challenge-e2e": {
+      "root": "apps/rabbit-challenge-e2e",
+      "sourceRoot": "apps/rabbit-challenge-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/rabbit-challenge-e2e/cypress.json",
+            "tsConfig": "apps/rabbit-challenge-e2e/tsconfig.e2e.json",
+            "devServerTarget": "rabbit-challenge:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "rabbit-challenge:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["apps/rabbit-challenge-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**", "!apps/rabbit-challenge-e2e/**/*"]
+          }
+        }
+      }
+    },
+    "secret-phrase": {
+      "projectType": "library",
+      "root": "libs/secret-phrase",
+      "sourceRoot": "libs/secret-phrase/src",
+      "prefix": "rabbi-challenge",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/secret-phrase/tsconfig.lib.json",
+              "libs/secret-phrase/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/secret-phrase/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/secret-phrase"],
+          "options": {
+            "jestConfig": "libs/secret-phrase/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "character-map": {
+      "projectType": "library",
+      "root": "libs/character-map",
+      "sourceRoot": "libs/character-map/src",
+      "prefix": "rabbi-challenge",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/character-map/tsconfig.lib.json",
+              "libs/character-map/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**", "!libs/character-map/**/*"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/character-map"],
+          "options": {
+            "jestConfig": "libs/character-map/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  }
+}

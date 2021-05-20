@@ -1,0 +1,36 @@
+{
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "rabbi-challenge",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/workspace/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"]
+      }
+    }
+  },
+  "projects": {
+    "rabbit-challenge": {
+      "tags": []
+    },
+    "rabbit-challenge-e2e": {
+      "tags": [],
+      "implicitDependencies": ["rabbit-challenge"]
+    },
+    "secret-phrase": {
+      "tags": ["secret-phrase", "feature"]
+    },
+    "character-map": {
+      "tags": []
+    }
+  }
+}
